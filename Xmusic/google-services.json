@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "961316209326",
+    "firebase_url": "https://xmsmusicstation.firebaseio.com",
+    "project_id": "xmsmusicstation",
+    "storage_bucket": "xmsmusicstation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961316209326:android:60a2f28a6f7834b4",
+        "android_client_info": {
+          "package_name": "com.nct.xmsbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961316209326-15ig4ba3l8odjtcqpj3p54veate5oiq0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nct.xmsbox",
+            "certificate_hash": "6c1ddc5c4ecd77bed949ba3bb3067a8cfaf30fab"
+          }
+        },
+        {
+          "client_id": "961316209326-07p49kdoo6smorgjksalbmphajlqt0vs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxBO9VYgj4SAgMR2N5FWSkIraTi_32PQM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961316209326-07p49kdoo6smorgjksalbmphajlqt0vs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

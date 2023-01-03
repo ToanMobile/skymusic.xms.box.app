@@ -1,0 +1,187 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildFeatures.dataBinding = true
+    defaultConfig {
+        applicationId build_versions.app_id
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.versionCode
+        versionName build_versions.versionName
+        vectorDrawables.useSupportLibrary = true
+        renderscriptTargetApi build_versions.target_sdk
+        renderscriptSupportModeEnabled true
+        multiDexEnabled true
+        multiDexKeepProguard file('multidex_config.pro')
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            universalApk true
+        }
+    }
+    project.ext.abiCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3, 'x86_64': 4]
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def abiName = output.getFilter(com.android.build.OutputFile.ABI) ?: System.getenv('GRADLE_ABI')?.toLowerCase() ?: "all"
+            output.versionCodeOverride = 10000000 + defaultConfig.versionCode + abiCodes.get(abiName, 0)
+            def outputName = "SkySoundtrack-"
+            outputName += variant.versionName + "-" + abiName +"-" + getDate() + ".apk"
+            output.outputFileName = outputName
+        }
+    }
+    configurations {
+        all {
+            exclude module: 'httpclient'
+        }
+    }
+    signingConfigs {
+        Key {
+            try {
+                storeFile file(key_store.keystore)
+                storePassword key_store.keystorePass
+                keyAlias key_store.alias
+                keyPassword key_store.aliasPass
+            }
+            catch (ignored) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.Key
+            debuggable true
+            minifyEnabled false
+            buildConfigField("String", "APP_NAME", "\"XmusicStation\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.xmusicstation.com/\"")
+            buildConfigField("String", "CLIENT_ID", "\"2068156142\"")
+            buildConfigField("String", "CLIENT_SERCET", "\"e60aa2db329543ee8d5c7dc723bb8df8\"")
+        }
+        dev {
+            signingConfig signingConfigs.Key
+            debuggable true
+            minifyEnabled false
+            buildConfigField("String", "APP_NAME", "\"XmusicStation\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.100.122:8088/\"")
+            buildConfigField("String", "CLIENT_ID", "\"2068156142\"")
+            buildConfigField("String", "CLIENT_SERCET", "\"e60aa2db329543ee8d5c7dc723bb8df8\"")
+        }
+        release {
+            signingConfig signingConfigs.Key
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    key_store.proguard_rules, key_store.proguard_rx, key_store.proguard_square, key_store.proguard_support
+            buildConfigField("String", "APP_NAME", "\"XmusicStation\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.xmusicstation.com/\"")
+            buildConfigField("String", "CLIENT_ID", "\"2068156142\"")
+            buildConfigField("String", "CLIENT_SERCET", "\"e60aa2db329543ee8d5c7dc723bb8df8\"")
+        }
+    }
+    lintOptions {
+        textOutput "stdout"
+        textReport true
+        checkAllWarnings true
+        warningsAsErrors true
+        showAll true
+        explainIssues true
+        abortOnError false
+        lintConfig file("$projectDir/lint.xml")
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/license/LICENSE.base64.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/MANIFEST.MF'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res-main',
+                    file('src/main/res-screen')
+                            .listFiles()
+                            .each { res.srcDirs += it.path }
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation project(':Core')
+    // Kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.multidex
+    //implementation deps.work
+    // Support libraries
+    for (dependency in deps.support) {
+        implementation dependency.value
+    }
+    //Core
+    for (dependency in deps.core) {
+        implementation dependency.value
+    }
+    // Architecture components
+    for (dependency in deps.lifecycle) {
+        implementation dependency.value
+    }
+    // Dagger 2
+    for (dependency in deps.dagger) {
+        implementation dependency.value
+    }
+    //Compiler
+    for (dependency in deps.compiler) {
+        kapt dependency.value
+    }
+    //Retrofit
+    for (dependency in deps.retrofit) {
+        implementation dependency.value
+    }
+    implementation(deps.libCore.ok_httpLogging, {
+        exclude group: 'org.json', module: 'json'
+    })
+    implementation(deps.libCore.permisstion, {
+        exclude module: "support-v13"
+    })
+    implementation(deps.libCore.glide_recycler, {
+        transitive = false
+    })
+    //Image Loading
+    for (dependency in deps.glide) {
+        implementation dependency.value
+    }
+    //Utils
+    for (dependency in deps.utils) {
+        implementation dependency.value
+    }
+    //Download
+    for (dependency in deps.download) {
+        implementation dependency.value
+    }
+    //Library
+    for (dependency in deps.library) {
+        implementation dependency.value
+    }
+}
+
+static def getDate() {
+    return new Date().format('ddMM')
+}

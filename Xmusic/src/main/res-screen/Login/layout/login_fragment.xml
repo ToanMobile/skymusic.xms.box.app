@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nct.xmusicstation.ui.login.LoginViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:keepScreenOn="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/layoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_logo"
+                app:imageDrawable="@{@drawable/icon_logo}" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/login_tvCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/fontmain"
+            android:gravity="center"
+            android:text="@string/login_login"
+            android:textColor="@color/text_primary"
+            android:textSize="46sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/layoutLogin"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <RelativeLayout
+                android:id="@+id/layoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext_login"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_et_name"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_small" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtEmail"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal" />
+
+                <ImageView
+                    android:id="@+id/imgEmailError"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_error"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutEmail"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext_login"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/txtPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_et_pass"
+                    android:textColor="@color/color_text"
+                    android:textSize="@dimen/text_small" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtPass"
+                    android:background="@null"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/text_normal" />
+
+                <ImageView
+                    android:id="@+id/imgPassError"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_error"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtError"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutPass"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="@color/cpb_red"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_below="@+id/layoutPass"
+                android:layout_alignEnd="@+id/layoutPass"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_state_selector"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="@string/login_login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium">
+
+                <requestFocus />
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/pad30"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/loginCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+            <com.nct.xmusicstation.library.custombutton.CircularProgressButton
+                android:id="@+id/loginBtnRenewCode"
+                android:layout_width="160dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/cpb_red"
+                android:textSize="@dimen/text_big"
+                app:cpb_colorIndicator="@color/text_primary"
+                app:cpb_colorIndicatorBackground="@color/background_shadow"
+                app:cpb_colorProgress="@color/transparent"
+                app:cpb_cornerRadius="@dimen/button_corners_radius"
+                app:cpb_selectorComplete="@color/selector_round_button_color"
+                app:cpb_selectorIdle="@color/selector_round_button_color"
+                app:cpb_textComplete="Lấy code mới"
+                app:cpb_textError="Lỗi, thử lại sau"
+                app:cpb_textIdle="Lấy code mới" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,102 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildFeatures.dataBinding = true
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.versionCode
+        versionName build_versions.versionName
+        multiDexEnabled true
+    }
+    signingConfigs {
+        Key {
+            try {
+                storeFile file(key_store.keystore)
+                storePassword key_store.keystorePass
+                keyAlias key_store.alias
+                keyPassword key_store.aliasPass
+            }
+            catch (ignored) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+        dev {
+            debuggable true
+            minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.Key
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    key_store.proguard_rules, key_store.proguard_rx, key_store.proguard_square, key_store.proguard_support
+        }
+    }
+    ndkVersion '25.1.8937393'
+}
+
+dependencies {
+    // Kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.multidex
+    // Support libraries
+    for (dependency in deps.support) {
+        implementation dependency.value
+    }
+    //Core
+    for (dependency in deps.core) {
+        implementation dependency.value
+    }
+    // Architecture components
+    for (dependency in deps.lifecycle) {
+        implementation dependency.value
+    }
+    // Dagger 2
+    for (dependency in deps.dagger) {
+        implementation dependency.value
+    }
+    //Compiler
+    for (dependency in deps.compiler) {
+        kapt dependency.value
+    }
+    //Retrofit
+    for (dependency in deps.retrofit) {
+        implementation dependency.value
+    }
+    implementation(deps.libCore.ok_httpLogging, {
+        exclude group: 'org.json', module: 'json'
+    })
+    implementation(deps.libCore.glide_recycler, {
+        transitive = false
+    })
+    //Image Loading
+    for (dependency in deps.glide) {
+        implementation dependency.value
+    }
+    //Utils
+    for (dependency in deps.utils) {
+        implementation dependency.value
+    }
+    //Download
+    for (dependency in deps.download) {
+        implementation dependency.value
+    }
+    //Library
+    for (dependency in deps.library) {
+        implementation dependency.value
+    }
+}
+

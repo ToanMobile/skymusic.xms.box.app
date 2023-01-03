@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:typeface">sans</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:buttonStyle">@style/CamelCaseButton</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+    </style>
+    <style name="PlayerSeekbarStyle" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+        <item name="android:minHeight">@dimen/seekbar_height</item>
+        <item name="android:maxHeight">@dimen/seekbar_height</item>
+        <item name="android:thumb">@drawable/ic_thumb</item>
+        <item name="android:splitTrack">false</item>
+    </style>
+</resources>

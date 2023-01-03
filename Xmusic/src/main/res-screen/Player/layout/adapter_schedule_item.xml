@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:layout_marginTop="@dimen/pad10"
+              android:layout_marginStart="@dimen/pad10"
+              android:id="@+id/rootSchedule"
+              android:background="@drawable/bg_player_selector">
+
+    <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/iconMusic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="invisible"
+            app:indicatorName="LineScalePulseOutRapidIndicator"/>
+
+    <TextView
+            android:id="@+id/txtTimeSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_player_selector"
+            android:textSize="@dimen/text_small"
+            android:fontFamily="@font/fontmain"/>
+
+    <TextView
+            android:id="@+id/txtNameSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_player_selector"
+            android:textSize="@dimen/text_small"
+            android:fontFamily="@font/fontmain"/>
+
+    <ImageView
+            android:id="@+id/img_star"
+            android:layout_marginStart="3dp"
+            android:layout_width="@dimen/global_elevation_12"
+            android:layout_height="@dimen/global_elevation_12"
+            android:contentDescription="@null"
+            app:srcCompat="@drawable/ic_star_black_24dp"
+            android:visibility="invisible"/>
+</LinearLayout>
+

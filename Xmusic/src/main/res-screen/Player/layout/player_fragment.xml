@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.nct.xmusicstation.ui.player.PlayerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/pad20"
+            android:layout_marginTop="@dimen/pad10"
+            android:layout_marginBottom="@dimen/pad10"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:imageDrawable="@{@drawable/icon_logo_player}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_logo_player" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtBranch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/fontmain"
+            android:gravity="center"
+            android:paddingStart="0dp"
+            android:paddingEnd="20dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_big"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/view"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/logout" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="2dp"
+            android:layout_height="25dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/logout"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/logout" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/logout"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/fontmain"
+            android:gravity="center"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_big"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutLeft"
+            android:layout_width="280dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/timeBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTimeSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/fontmain"
+                android:paddingTop="@dimen/pad10"
+                android:paddingBottom="@dimen/pad5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutLeft"
+            app:layout_constraintEnd_toStartOf="@+id/layoutRight"
+            app:layout_constraintStart_toEndOf="@id/layoutLeft"
+            app:layout_constraintTop_toTopOf="@+id/layoutLeft">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTitleSong"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontmain"
+                android:paddingStart="75dp"
+                android:paddingTop="@dimen/pad10"
+                android:paddingEnd="0dp"
+                android:paddingBottom="@dimen/pad5"
+                android:text="@string/title_song"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/txtTitleSinger"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTitleSinger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontmain"
+                android:paddingTop="@dimen/pad10"
+                android:paddingBottom="@dimen/pad5"
+                android:text="@string/title_singer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/txtTitleSong"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTitleDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:paddingTop="@dimen/pad10"
+                android:paddingBottom="@dimen/pad5"
+                android:text="@string/title_time"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/txtTitleSinger"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvListSong"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtTitleSong" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/errorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad20"
+                android:drawableTop="@drawable/ic_disconnect"
+                android:drawablePadding="@dimen/pad10"
+                android:gravity="center"
+                android:text="@string/no_internet"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutRight"
+            android:layout_width="230dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layoutLeft">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:paddingTop="@dimen/pad10"
+                android:paddingBottom="@dimen/pad5"
+                android:text="@string/title_playlist_play"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgPlaylist"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/pad10"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:imageDrawable="@{@drawable/cover}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPlaylist"
+                app:srcCompat="@drawable/cover"
+                tools:srcCompat="@drawable/cover"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtAlbumName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad10"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/fontmain"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/imgPlaylist"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtAlbumSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad10"
+                android:fontFamily="@font/fontmain"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/txtAlbumName"
+                tools:text="5"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtAlbumTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fontmain"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintEnd_toEndOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toTopOf="@+id/txtAlbumSize"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtAlbumShuffle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableStart="@drawable/shuffle_selector"
+                android:drawablePadding="@dimen/pad10"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:text="@string/shuffle_playlist"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/txtAlbumSize"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtAlbumOnTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad10"
+                android:drawableStart="@drawable/ontime_selector"
+                android:drawablePadding="@dimen/pad10"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:text="@string/ontime_playlist"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/txtAlbumShuffle"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTotalSongAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad30"
+                android:drawableStart="@drawable/ic_library_music"
+                android:drawablePadding="@dimen/pad10"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:text="@string/ontime_playlist"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/txtAlbumOnTime"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtTotalSongAlbum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad10"
+                android:drawableStart="@drawable/ic_library_music"
+                android:drawablePadding="@dimen/pad10"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:text="@string/ontime_playlist"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintStart_toStartOf="@+id/imgPlaylist"
+                app:layout_constraintTop_toBottomOf="@+id/txtTotalSongAll"
+                tools:text="Toan test"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/deviceInfoTvStorage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/txtVersions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="SSD:"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtVersions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                app:layout_constraintBottom_toTopOf="@+id/btnUpdateVersions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1.0.0"/>
+
+            <Button
+                android:id="@+id/btnUpdateVersions"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pad10"
+                android:background="@drawable/login_state_selector"
+                android:fontFamily="@font/fontmain"
+                android:gravity="center"
+                android:text="@string/update"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1.0.1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.exoplayer2.ui.DefaultTimeBar
+            android:id="@+id/timeBar"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginLeft="@dimen/pad5"
+            android:layout_marginRight="@dimen/pad5"
+            android:background="@color/bg_player_button"
+            app:buffered_color="@color/background_avatar"
+            app:layout_constraintBottom_toTopOf="@+id/player"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:played_color="@color/background_avatar"
+            app:scrubber_color="@color/background_avatar"
+            app:unplayed_color="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/playerDownloadProgressBar"
+            style="@style/PlayerSeekbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad5"
+            android:layout_marginRight="@dimen/pad5"
+            android:background="@color/bg_player_button"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/player"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:background="@color/bg_player_button"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/playerDownloadProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/watting"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgPlaylistSmall"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:imageDrawable="@{@drawable/cover}"
+                app:srcCompat="@drawable/cover" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgPlaylistSmall"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="0dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/playerSongName"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/playerSinger"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/playerSongName"
+                    android:layout_alignStart="@+id/playerSongName"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/playerAlbum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/playerSinger"
+                    android:layout_marginStart="30dp"
+                    android:layout_toEndOf="@+id/playerSinger"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    app:imageDrawable="@{@drawable/previous}"
+                    app:srcCompat="@drawable/previous" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:adjustViewBounds="true"
+                    app:imageDrawable="@{@drawable/pause}"
+                    app:srcCompat="@drawable/pause" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    app:imageDrawable="@{@drawable/next_btn}"
+                    app:srcCompat="@drawable/next_btn" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="100dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/playerTimeCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtGach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gach"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/playerTimeElapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtKbps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/bg_kps"
+                    android:fontFamily="@font/fontmain"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_normal" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </RelativeLayout>
+
+        <com.nct.xmusicstation.library.exoplayer.CustomExoPlayerView
+            android:id="@+id/playerView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
